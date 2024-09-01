@@ -45,6 +45,9 @@ data class MediaData(
     @SerialName("first_air_date")
     var firstAirDate: String? = null,
 
+    @SerialName("release_date")
+    var releaseDate: String? = null,
+
     @SerialName("vote_average")
     var voteAverage: Double? = null,
 

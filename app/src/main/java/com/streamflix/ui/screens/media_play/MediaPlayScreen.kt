@@ -1,7 +1,6 @@
 package com.streamflix.ui.screens.media_play
 
 import android.net.Uri
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -74,7 +73,6 @@ fun MediaPlayScreen(
             Color.White)
         }
     } else {
-        // Display the video player when media is playing
         val context = LocalContext.current
         val exoPlayer = remember {
             ExoPlayer.Builder(context)
@@ -91,7 +89,6 @@ fun MediaPlayScreen(
                 }
         }
 
-        // Display ExoPlayer
         AndroidView(
             factory = {
                 PlayerView(context).apply {

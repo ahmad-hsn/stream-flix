@@ -56,12 +56,9 @@ import coil.compose.rememberAsyncImagePainter
 import com.medialibrary.model.KnownFor
 import com.medialibrary.model.MediaData
 import com.streamflix.R
-import com.streamflix.ui.screens.home.CarouselItem
 import com.streamflix.utils.AppConstants
 import com.streamflix.utils.NavToMediaPlayer
 import com.streamflix.utils.getYearFromDataString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -131,7 +128,7 @@ fun MovieDetailScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(300.dp * overlayHeightRatio) // Overlay height as a fraction of image height
+                        .height(300.dp * overlayHeightRatio)
                         .background(
                             Brush.verticalGradient(
                                 colors = listOf(Color.Transparent, Color.Black),
@@ -139,24 +136,29 @@ fun MovieDetailScreen(
                                 endY = (700.dp * overlayHeightRatio).value
                             )
                         )
-                        .align(Alignment.BottomCenter) // Position the overlay at the bottom of the image
+                        .align(Alignment.BottomCenter)
                 )
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 10.dp)
                 ) {
+                    var date = if(it.firstAirDate != null) {
+                        it.firstAirDate
+                    } else {
+                        it.releaseDate
+                    }
                     Text(
-                        text = it.name ?: it.originalName ?: "No Data Found (${"2024-22-05".getYearFromDataString()})",
+                        text = it.name ?: it.originalName ?: "No Data Found",
                         color = Color.White,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(vertical = 10.dp)
                     )
                     Row {
-                        Chip(text = "")
+                        Chip(text = if(!date.isNullOrEmpty()) date.getYearFromDataString() else "N/A")
                         Spacer(modifier = Modifier.width(8.dp))
-                        Chip(text = "")
+                        Chip(text = "Votes: ${it.voteCount ?: "N/A"}")
                     }
                 }
             }

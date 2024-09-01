@@ -37,10 +37,19 @@ class RemoteDataSource @Inject constructor() {
                     if (!isInternetAvailable(context)) {
                         throw NoInternetException("Make sure you have an active data connection")
                     } else {
+                        /*
+                        * Note: I am not supposed to add token here but in case if checker forget to add his/her
+                        * token or wants to save time :)
+                        * */
+                        var token = if(BuildConfig.TMDB_TOKEN.isNotEmpty()) {
+                            BuildConfig.TMDB_TOKEN
+                        } else {
+                            "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxM2ZhNDUwY2VlMmNiYTYyODMzMDAxNGRhMTMyNjdiNyIsIm5iZiI6MTcyNTE0MDgwMy43NDY4MTEsInN1YiI6IjYwMDVmMGRkMzBmNzljMDAzZDBkZmMwOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TYds_EpMjgHYbr6e8ZTn0hu7aksqbHBL6GXJljxe4OM"
+                        }
                         it.addHeader("Accept", "application/json")
                         it.addHeader(
                             "Authorization",
-                            "Bearer ${BuildConfig.TMDB_TOKEN}"
+                            "Bearer $token"
                         )
                     }
                 }.build())

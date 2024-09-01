@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
     val mediaDataState: StateFlow<Resource<MediaResponse>> get() = _mediaDataState
 
     init {
-        getDataFromModule("Tom")
+        getDataFromModule("Marvel")
     }
 
     fun getDataFromModule(query: String) = viewModelScope.launch {
